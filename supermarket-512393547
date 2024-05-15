@@ -1,0 +1,160 @@
+class Product:
+    Supermarket_name = "Omar"
+    def __init__(self,name,product_id,price,manufacturer,weight,expiration_date,year):
+        self.name = name
+        self.ID = product_id
+        self.price = price
+        self.manufacturer = manufacturer
+        self.weight = weight
+        self.expiration_date = expiration_date
+        self.year = year
+    def details(self):
+        print(f"Product name: {self.name}")
+        print(f"Product ID: {self.ID}")
+        print(f"Price: {self.price}")
+        print(f"Product manufacturer: {self.manufacturer}")
+        print(f"Product weighs: {self.weight}")
+        print(f"Product expiration date: {self.expiration_date}")
+        print(f"Product year: {self.year}")
+
+class Healthy(Product):
+    def __init__(self,name,product_id,price,manufacturer,weight,expiration_date,year,cals,components):
+        self.cals = cals
+        self.components = components
+        super().__init__(name,product_id,price,manufacturer,weight,expiration_date,year)
+        cals = 0
+    def Hdetails(self):
+        Healthy.details(self)
+        print(f"Product calories:{self.cals}")
+        print(f"Product components:{self.components}")
+
+def ex():
+    print("Bye<3")
+
+class cashier_system:
+    def __init__(self):
+        self.products = []
+        self.healthy = []
+    def add_product(self):
+        name = input("Enter product's name\n")
+        product_id = int(input("Enter product's ID\n"))
+        price = float(input("Enter product's price\n"))
+        manufacturer = input("Enter product's manufacturer\n")
+        weight = input("Enter product's weight\n")
+        expiration_date = input("Enter product's expiration date\n")
+        year = int(input("Enter product's year\n"))
+        product = Product(name,product_id,price, manufacturer, weight, expiration_date, year)
+        self.products.append(product)
+        print("Done!")
+
+    def addhealthy(self):
+        name = input("Enter product's name\n")
+        product_id = int(input("Enter product's ID\n"))
+        price = float(input("Enter product's price\n"))
+        manufacturer = input("Enter product's manufacturer\n")
+        weight = input("Enter product's weight\n")
+        expiration_date = input("Enter product's expiration date\n")
+        year = int(input("Enter product's year\n"))
+        cals = int(input("Enter product's calories\n"))
+        components = input("Enter product's components\n")
+        health = Healthy(name,product_id,price,manufacturer,weight,expiration_date,year,cals,components)
+        self.healthy.append(health)
+        print("Done!")
+
+    def display(self):
+        for product in self.products:
+            product.details()
+
+    def Hdisplay(self):
+        for health in self.healthy:
+            health.Hdetails()
+
+
+    def edit(self):
+        pid = int(input("Enter the product id you want to change\n"))
+        newid = int(input("Enter the new product id\n"))
+        for product in self.products:
+            if pid == product.ID:
+                product.ID = newid
+                print("Product id changed successfully")
+                break
+            else:
+                print("Wrong ID")
+
+    def Hedit(self):
+        pid = int(input("Enter the product id you want to change it's calories\n"))
+        ncals = int(input("Enter the new calories value\n"))
+        for health in self.healthy:
+            if pid == health.ID:
+                health.cals = ncals
+                print("Calories changed successfully")
+                break
+            else:
+                print("Wrong ID")
+
+    def Hcal(self):
+        pid = int(input("Enter the product id you want to change it's calories\n"))
+        for health in self.healthy:
+            if pid == health.ID:
+                print(int(health.cals) * int(health.weight))
+            else:
+                print("Wrong ID")
+
+    def interface():
+        cashier = cashier_system()
+        while True:
+            print(f"Welcome to {Product.Supermarket_name} Market\nPlease enter 1 , 2 or 3")
+            print("1.Product")
+            print("2.Healthy")
+            print("3.Exit")
+            choice = int(input())
+            if choice == 1:
+                while True :
+                    print("\nKindly choose")
+                    print("1.Add new product")
+                    print("2.Display product details")
+                    print("3.Edit product details")
+                    print("4.Exit product")
+                    print("5.Exit all")
+                    subchoice = int(input("Enter 1 , 2 , 3 or 4\n"))
+                    if subchoice == 1:
+                        cashier.add_product()
+                    elif subchoice == 2:
+                        cashier.display()
+                    elif subchoice == 3:
+                        cashier.edit()
+                    elif subchoice == 4:
+                        cashier_system.interface()
+                    elif subchoice == 5:
+                        ex()
+                        break
+                break
+
+            elif choice == 2:
+                while True:
+                    print("\nKindly choose")
+                    print("1.Add new health product")
+                    print("2.Display health product details,calories and components")
+                    print("3.Edit product calories")
+                    print("4.display total product calories")
+                    print("5.Exit Healthy")
+                    print("6.Exit all")
+                    subchoice2 = int(input("Enter 1 , 2 , 3 or 4\n"))
+                    if subchoice2 == 1:
+                        cashier.addhealthy()
+                    elif subchoice2 == 2:
+                        cashier.Hdisplay()
+                    elif subchoice2 == 3:
+                        cashier.Hedit()
+                    elif subchoice2 == 4:
+                        cashier.Hcal()
+                    elif subchoice2 == 5:
+                        cashier_system.interface()
+                    elif subchoice2 == 6:
+                      ex()
+                      break
+                break
+            elif choice == 3:
+                ex()
+                break
+cashier_system.interface()
